@@ -15,3 +15,6 @@ I am using the follow models:
 - Phi-3-mini-128k-directml-int4-awq-block-128-onnx
 
 The model catalog will recommend models based on your local hardware. My laptop is relatively old so able to run more advanced models.
+
+When downloading the models the are stored in ${HOME}\.aitk\models\microsoft\Phi-3-mini-128k-instruct-onnx...
+
