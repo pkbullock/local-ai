@@ -1,44 +1,56 @@
 ﻿// Program.cs
-using OpenAI;
-using OpenAI.Chat;
-using System.ClientModel;
-using System.ClientModel.Primitives;
+using Microsoft.ML.OnnxRuntimeGenAI;
 
-internal class Program
+/*
+ *  This sample rather than uses AI Toolkit (AITK) to interact with the Phi3 model. Interacts with the Phi3 model directly.
+ *  Allowing for flexibility and reduced dependencies on future learning.
+ *  
+ *  This is based on the Phi3 model from Microsoft. The Phi3 model is a mini model that is designed to be used on a CPU or mobile device.
+ *  Original Sample: https://github.com/microsoft/Phi-3CookBook from Labs.
+ *  
+ */
+
+var modelPath = @"C:\Users\PaulBullock\.aitk\models\microsoft\Phi-3-mini-4k-instruct-onnx\cpu_and_mobile\cpu-int4-rtn-block-32-acc-level-4";
+var model = new Model(modelPath);
+var tokenizer = new Tokenizer(model);
+
+var systemPrompt = "You are an AI assistant that helps people find information. Answer questions using a direct style. Do not share more information that the requested by the users.";
+
+// chat start
+Console.WriteLine(@"Ask your question. Type an empty string to Exit.");
+
+
+// chat loop
+while (true)
 {
-    private static async Task Main(string[] args)
+    // Get user question
+    Console.WriteLine();
+    Console.Write(@"Q: ");
+    var userQ = Console.ReadLine();
+    if (string.IsNullOrEmpty(userQ))
     {
-        Uri localhostUri = new("http://localhost:5272/v1/chat/completions");
-
-        //AzureOpenAIClientOptions clientOptions = new OpenAIClientOptions
-        //{
-        //    Endpoint = localhostUri
-        //};
-
-        OpenAIClientOptions clientOptions = new();
-
-        clientOptions.AddPolicy(
-            new OverrideRequestUriPolicy(localhostUri), PipelinePosition.BeforeTransport);
-
-        OpenAIClient client = new(new System.ClientModel.ApiKeyCredential("unused"),
-            clientOptions);
-
-        ChatClient chatClient = client.GetChatClient("Phi-3-mini-4k-directml-int4-awq-block-128-onnx");
-
-
-        ResultCollection<StreamingChatCompletionUpdate> completionUpdates =
-            chatClient.CompleteChatStreaming(
-            [
-                new SystemChatMessage("You are a helpful assistant. Be brief and succinct."),
-                new UserChatMessage("What is the golden ratio?"),
-            ]);
-
-        foreach (StreamingChatCompletionUpdate completionUpdate in completionUpdates)
-        {
-            foreach (ChatMessageContentPart contentPart in completionUpdate.ContentUpdate)
-            {
-                Console.Write(contentPart.Text);
-            }
-        }
+        break;
     }
+
+    // show phi3 response
+    Console.Write("Phi3: ");
+    var fullPrompt = $"<|system|>{systemPrompt}<|end|><|user|>{userQ}<|end|><|assistant|>";
+    var tokens = tokenizer.Encode(fullPrompt);
+
+    var generatorParams = new GeneratorParams(model);
+    generatorParams.SetSearchOption("max_length", 2048);
+    generatorParams.SetSearchOption("past_present_share_buffer", false);
+    generatorParams.SetInputSequences(tokens);
+
+    var generator = new Generator(model, generatorParams);
+    while (!generator.IsDone())
+    {
+        generator.ComputeLogits();
+        generator.GenerateNextToken();
+        ReadOnlySpan<int> outputTokens = generator.GetSequence(0);
+        ReadOnlySpan<int> newToken = outputTokens.Slice(outputTokens.Length - 1, 1);
+        var output = tokenizer.Decode(newToken);
+        Console.Write(output);
+    }
+    Console.WriteLine();
 }
