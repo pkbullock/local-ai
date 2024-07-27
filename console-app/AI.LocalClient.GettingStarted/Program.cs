@@ -9,8 +9,9 @@ using Microsoft.ML.OnnxRuntimeGenAI;
  *  Original Sample: https://github.com/microsoft/Phi-3CookBook from Labs.
  *  
  */
+var modelPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+        @"\.aitk\models\microsoft\Phi-3-mini-4k-instruct-onnx\cpu_and_mobile\cpu-int4-rtn-block-32-acc-level-4");
 
-var modelPath = @"C:\Users\PaulBullock\.aitk\models\microsoft\Phi-3-mini-4k-instruct-onnx\cpu_and_mobile\cpu-int4-rtn-block-32-acc-level-4";
 var model = new Model(modelPath);
 var tokenizer = new Tokenizer(model);
 
