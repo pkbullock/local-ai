@@ -18,3 +18,6 @@ The model catalog will recommend models based on your local hardware. My laptop 
 
 When downloading the models the are stored in ${HOME}\.aitk\models\microsoft\Phi-3-mini-128k-instruct-onnx...
 
+## Cool References
+
+- https://github.com/microsoft/semantic-kernel/blob/main/dotnet/README.md
