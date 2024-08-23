@@ -175,4 +175,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of .gitignore
-polyglots/settings/github-modes.creds.json
+polyglots/js-ai-inference-sdk/github-models.creds.json
