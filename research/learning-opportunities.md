@@ -11,3 +11,4 @@
 - https://github.com/cassiebreviu/StableDiffusion
 
 - https://onnxruntime.ai/docs/api/csharp/api/
+- https://learn.microsoft.com/en-us/windows/ai/directml/webnn-overview
