@@ -1,5 +1,7 @@
 ﻿// Program.cs
 using Microsoft.ML.OnnxRuntimeGenAI;
+using System.Reflection.Emit;
+using System.Reflection;
 
 /*
  *  This sample rather than uses AI Toolkit (AITK) to interact with the Phi3 model. Interacts with the Phi3 model directly.
@@ -10,7 +12,7 @@ using Microsoft.ML.OnnxRuntimeGenAI;
  *  
  */
 var modelPath = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-        @"\.aitk\models\microsoft\Phi-3-mini-128k-instruct-onnx\cpu_and_mobile\cpu-int4-rtn-block-32-acc-level-4");
+        @"\.aitk\models\microsoft\Phi-3-mini-4k-instruct-onnx\cpu_and_mobile\cpu-int4-rtn-block-32-acc-level-4");
 
 var model = new Model(modelPath);
 var tokenizer = new Tokenizer(model);
@@ -42,6 +44,7 @@ while (true)
     generatorParams.SetSearchOption("max_length", 2048);
     generatorParams.SetSearchOption("past_present_share_buffer", false);
     generatorParams.SetInputSequences(tokens);
+    
 
     var generator = new Generator(model, generatorParams);
     while (!generator.IsDone())

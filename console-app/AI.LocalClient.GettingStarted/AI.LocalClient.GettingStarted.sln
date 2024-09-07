@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AI.LocalClient.GettingStarted", "AI.LocalClient.GettingStarted.csproj", "{232539EE-A28D-4D73-B065-EFF01DD449FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.LocalClient.SK.GettingStarted", "..\AI.LocalClient.SK.GettingStarted\AI.LocalClient.SK.GettingStarted.csproj", "{5545EDE1-19AD-44E2-A056-D05825C336BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AI.LocalClient.SK.GettingStarted", "..\AI.LocalClient.SK.GettingStarted\AI.LocalClient.SK.GettingStarted.csproj", "{5545EDE1-19AD-44E2-A056-D05825C336BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI.LocalClient.GettingStarted.CopilotPC", "..\AI.LocalClient.GettingStarted.CopilotPC\AI.LocalClient.GettingStarted.CopilotPC.csproj", "{2D890338-CD5E-4863-A312-7FB9348572B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5545EDE1-19AD-44E2-A056-D05825C336BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5545EDE1-19AD-44E2-A056-D05825C336BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5545EDE1-19AD-44E2-A056-D05825C336BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D890338-CD5E-4863-A312-7FB9348572B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D890338-CD5E-4863-A312-7FB9348572B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D890338-CD5E-4863-A312-7FB9348572B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D890338-CD5E-4863-A312-7FB9348572B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
