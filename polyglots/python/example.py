@@ -4,6 +4,8 @@ import numpy as np
 from PIL import Image
 import sys
 
+# Install - pip install onnx onnxruntime onnxruntime-qnn pillow
+
 def preprocess_image(image_path):
     # Load image
     image = Image.open(image_path).convert('RGB')  # Convert to grayscale
@@ -31,11 +33,13 @@ def main(image_path):
     # Use QNNExecutionProvider if available, otherwise fall back to CPUExecutionProvider
     if 'QNNExecutionProvider' in available_providers:
         providers = ['QNNExecutionProvider']
+        options=[{'backend_path':'QnnHtp.dll'}]
+        ort_session = ort.InferenceSession(model_path, providers=providers, provider_options=options)
+
     else:
         providers = ['CPUExecutionProvider']
         print("Warning: QNNExecutionProvider not available, using CPUExecutionProvider")
-
-    ort_session = ort.InferenceSession(model_path, providers=providers)
+        ort_session = ort.InferenceSession(model_path, providers=providers)
 
     # Prepare input data
     input_name = ort_session.get_inputs()[0].name
