@@ -51,3 +51,9 @@ class Program
     }
 }
 ```
+
+## Llama NPU Example
+
+Download CLI at: https://github.com/ggerganov/llama.cpp/releases -the ARM64 one.
+
+C:\ai\llama-b3721-bin-win-llvm-arm64\llama-cli.exe -m "C:\ai\lmstudio\lmstudio-community\Meta-Llama-3.1-8B-Instruct-GGUF\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" -n 128 -p "Tell me about life."
