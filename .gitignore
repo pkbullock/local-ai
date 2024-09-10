@@ -176,3 +176,4 @@ $RECYCLE.BIN/
 
 # End of .gitignore
 polyglots/js-ai-inference-sdk/github-models.creds.json
+polyglots/python/output_image_notebook.png
