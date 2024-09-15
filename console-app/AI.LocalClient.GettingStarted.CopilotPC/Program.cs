@@ -1,5 +1,6 @@
 ﻿// Program.cs
 using Microsoft.ML.OnnxRuntimeGenAI;
+using Microsoft.ML.OnnxRuntime;
 using System.Reflection.Emit;
 using System.Reflection;
 
@@ -22,7 +23,6 @@ var systemPrompt = "You are an AI assistant that helps people find information. 
 // chat start
 Console.WriteLine(@"Ask your question. Type an empty string to Exit.");
 
-
 // chat loop
 while (true)
 {
@@ -43,8 +43,7 @@ while (true)
     var generatorParams = new GeneratorParams(model);
     generatorParams.SetSearchOption("max_length", 2048);
     generatorParams.SetSearchOption("past_present_share_buffer", false);
-    generatorParams.SetInputSequences(tokens);
-    
+    generatorParams.SetInputSequences(tokens); 
 
     var generator = new Generator(model, generatorParams);
     while (!generator.IsDone())

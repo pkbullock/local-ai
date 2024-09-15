@@ -13,4 +13,10 @@
     <PackageReference Include="Microsoft.ML.OnnxRuntimeGenAI" Version="0.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.ML.OnnxRuntime">
+      <HintPath>..\..\..\..\..\Users\PaulBullock\.nuget\packages\microsoft.ml.onnxruntime.managed\1.18.1\lib\net6.0\Microsoft.ML.OnnxRuntime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
