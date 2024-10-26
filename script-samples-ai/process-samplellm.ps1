@@ -73,21 +73,21 @@ process {
             [string]$SystemPrompt
         )
 
-        if(-not $Prompt -or -not $Model -or -not $SystemPrompt) {
+        if (-not $Prompt -or -not $Model -or -not $SystemPrompt) {
             Write-Host "Prompt, Model and SystemPrompt are required" -ForegroundColor Red
             return
         }
         
         $body = @{
-            model = $Model
-            prompt = $Prompt
-            system = $SystemPrompt
-            stream = $false
+            model   = $Model
+            prompt  = $Prompt
+            system  = $SystemPrompt
+            stream  = $false
             options = @{
                 temperature = 0.1
-                max_tokens = 4096
-                num_ctx = 4096
-                format = "json"
+                max_tokens  = 4096
+                num_ctx     = 4096
+                format      = "json"
             }
         }
         $json = $body | ConvertTo-Json
@@ -96,11 +96,39 @@ process {
         return $response
     }
 
+    # Function to count tokens in a prompt
+    function Get-TokenCount {
+        param (
+            [string]$prompt
+        )
+    
+        # Simple tokenization by splitting on spaces
+        $tokens = $prompt -split '\s+'
+        return $tokens.Count
+    }
+
+    # Function to check token count and warn user
+    function Test-TokenCount {
+        param (
+            [string]$prompt,
+            [int]$maxTokens = 4096
+        )
+    
+        $tokenCount = Get-TokenCount -prompt $prompt
+    
+        if ($tokenCount -gt $maxTokens) {
+            Write-Host "Warning: Your prompt exceeds the maximum token count of $maxTokens. Current token count: $tokenCount" -ForegroundColor Red
+        }
+        else {
+            Write-Host "Your prompt is within the token limit of $maxTokens. Current token count: $tokenCount" -ForegroundColor Green
+        }
+    }
+  
     Write-Host "Processing $Script" -ForegroundColor Cyan
     Write-Host "Generating Description from Model for $Script" -ForegroundColor Cyan
     
     # Check if the script location exists
-    if(-not (Test-Path $Script)) {
+    if (-not (Test-Path $Script)) {
         Write-Host "Script not found" -ForegroundColor Red
         return
     }
@@ -111,6 +139,8 @@ process {
     $prompt = $promptTemplate + $scriptToProcess
 
     Write-Host " - Prompt: $prompt" -ForegroundColor Blue
+    Test-TokenCount -prompt $prompt
+
 
     $localModelResults = @()
 
@@ -129,7 +159,7 @@ process {
         Write-Host "$localModel Model Result Description: $ModelDescription" -ForegroundColor Cyan
         Write-Host "Execution time for $localModel - $($executionTime.TotalSeconds) seconds" -ForegroundColor Magenta
 
-        try{
+        try {
             $modelResultObject = $ModelDescription | ConvertFrom-Json -Depth 10
         }
         catch {
@@ -140,18 +170,18 @@ process {
         $modelResponse.PSObject.Properties.Remove("context")        
 
         $localModelResults += [PSCustomObject]@{
-            Model = $localModel
+            Model                  = $localModel
             ModelResultDescription = $ModelDescription
-            ModelResultObject = $modelResultObject
+            ModelResultObject      = $modelResultObject
             ExecutionTimeInSeconds = $executionTime.TotalSeconds
-            ModelResponse = $modelResponse
+            ModelResponse          = $modelResponse
         }
     }
 
     $analysisResults = [PSCustomObject]@{
-        Script = $Script
-        Prompt = $prompt
-        SystemPrompt = $modelsystemPrompt
+        Script            = $Script
+        Prompt            = $prompt
+        SystemPrompt      = $modelsystemPrompt
         LocalModelResults = $localModelResults
     }
 
@@ -161,7 +191,7 @@ process {
     $analysisResults | ConvertTo-Json -Depth 10 | Out-File "$outputLocation\$outputFile.json"
 
 }
-end{
+end {
 
-  Write-Host "Done! :)" -ForegroundColor Green
+    Write-Host "Done! :)" -ForegroundColor Green
 }
