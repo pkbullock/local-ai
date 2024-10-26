@@ -5,10 +5,10 @@
   "LocalModelResults": [
     {
       "Model": "phi3.5:3.8b-mini-instruct-q4_0",
-      "ModelResultDescription": "{\n  \"Title\": \"List URLs in SharePoint Site Pages\",\n  \"Purpose\": \"The PowerShell script extracts and lists all the links from each page within a specified SharePoint site, along with their respective titles. It generates an output report containing details such as web title, URL of the webpage where it's found, file name on that website, Web Part Title (if any), Link Titles present in those parts, and corresponding URLs.\",\n  \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPListItem\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}",
+      "ModelResultDescription": "{\n  \"Title\": \"List URLs in SharePoint Site Pages\",\n  \"Purpose\": \"This PowerShell script extracts and reports on the links found within each page of a specified SharePoint site, including details such as web part titles and associated link information.\",\n  \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPListItem\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}",
       "ModelResultObject": {
         "Title": "List URLs in SharePoint Site Pages",
-        "Purpose": "The PowerShell script extracts and lists all the links from each page within a specified SharePoint site, along with their respective titles. It generates an output report containing details such as web title, URL of the webpage where it's found, file name on that website, Web Part Title (if any), Link Titles present in those parts, and corresponding URLs.",
+        "Purpose": "This PowerShell script extracts and reports on the links found within each page of a specified SharePoint site, including details such as web part titles and associated link information.",
         "Dependencies": [
           "Connect-PnPOnline",
           "Get-PnPListItem"
@@ -20,19 +20,19 @@
           }
         ]
       },
-      "ExecutionTimeInSeconds": 30.6418506,
+      "ExecutionTimeInSeconds": 7.9740566,
       "ModelResponse": {
         "model": "phi3.5:3.8b-mini-instruct-q4_0",
-        "created_at": "2024-10-26T14:08:55.0535373Z",
-        "response": "{\n  \"Title\": \"List URLs in SharePoint Site Pages\",\n  \"Purpose\": \"The PowerShell script extracts and lists all the links from each page within a specified SharePoint site, along with their respective titles. It generates an output report containing details such as web title, URL of the webpage where it's found, file name on that website, Web Part Title (if any), Link Titles present in those parts, and corresponding URLs.\",\n  \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPListItem\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}",
+        "created_at": "2024-10-26T14:13:16.4369104Z",
+        "response": "{\n  \"Title\": \"List URLs in SharePoint Site Pages\",\n  \"Purpose\": \"This PowerShell script extracts and reports on the links found within each page of a specified SharePoint site, including details such as web part titles and associated link information.\",\n  \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPListItem\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}",
         "done": true,
         "done_reason": "stop",
-        "total_duration": 28602640400,
-        "load_duration": 9693600,
+        "total_duration": 5933246300,
+        "load_duration": 10024900,
         "prompt_eval_count": 1485,
-        "prompt_eval_duration": 20833523000,
-        "eval_count": 161,
-        "eval_duration": 7757928000
+        "prompt_eval_duration": 129557000,
+        "eval_count": 121,
+        "eval_duration": 5790596000
       }
     }
   ]

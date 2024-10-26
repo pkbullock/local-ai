@@ -5,13 +5,13 @@
   "LocalModelResults": [
     {
       "Model": "phi3.5:3.8b-mini-instruct-q4_0",
-      "ModelResultDescription": "{\n  \"Title\": \"SharePoint Document Library Analysis Script\",\n  \"Purpose\": \"The script connects to a SharePoint site, retrieves information about document libraries and their items across multiple sites within the tenant.\",\n  \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPLibrary\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}\n",
+      "ModelResultDescription": "{\n  \"Title\": \"PowerShell Script for SharePoint Document Library Analysis\",\n  \"Purpose\": \"The script connects to a tenant admin site, retrieves all sites and their document libraries within the specified base template (101), then analyzes each library's folders and files. It calculates counts of items at different levels - direct count in lists/libraries, total item count across all documents, percentage distribution among them.\",\n  \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPList\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}\n",
       "ModelResultObject": {
-        "Title": "SharePoint Document Library Analysis Script",
-        "Purpose": "The script connects to a SharePoint site, retrieves information about document libraries and their items across multiple sites within the tenant.",
+        "Title": "PowerShell Script for SharePoint Document Library Analysis",
+        "Purpose": "The script connects to a tenant admin site, retrieves all sites and their document libraries within the specified base template (101), then analyzes each library's folders and files. It calculates counts of items at different levels - direct count in lists/libraries, total item count across all documents, percentage distribution among them.",
         "Dependencies": [
           "Connect-PnPOnline",
-          "Get-PnPLibrary"
+          "Get-PnPList"
         ],
         "Assumptions": [
           {
@@ -20,19 +20,19 @@
           }
         ]
       },
-      "ExecutionTimeInSeconds": 57.2257296,
+      "ExecutionTimeInSeconds": 43.0835486,
       "ModelResponse": {
         "model": "phi3.5:3.8b-mini-instruct-q4_0",
-        "created_at": "2024-10-26T14:08:02.8779413Z",
-        "response": "{\n  \"Title\": \"SharePoint Document Library Analysis Script\",\n  \"Purpose\": \"The script connects to a SharePoint site, retrieves information about document libraries and their items across multiple sites within the tenant.\",\n  \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPLibrary\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}\n",
+        "created_at": "2024-10-26T14:14:10.3396221Z",
+        "response": "{\n  \"Title\": \"PowerShell Script for SharePoint Document Library Analysis\",\n  \"Purpose\": \"The script connects to a tenant admin site, retrieves all sites and their document libraries within the specified base template (101), then analyzes each library's folders and files. It calculates counts of items at different levels - direct count in lists/libraries, total item count across all documents, percentage distribution among them.\",\n  \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPList\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}\n",
         "done": true,
         "done_reason": "stop",
-        "total_duration": 55171351400,
-        "load_duration": 1848164700,
+        "total_duration": 41052193400,
+        "load_duration": 10492300,
         "prompt_eval_count": 2270,
-        "prompt_eval_duration": 47450711000,
-        "eval_count": 114,
-        "eval_duration": 5870242000
+        "prompt_eval_duration": 32039594000,
+        "eval_count": 159,
+        "eval_duration": 9000532000
       }
     }
   ]
