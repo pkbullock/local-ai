@@ -6,7 +6,7 @@ What I'm looking to do is to simplify the walls around experience by reducing th
 
 So let's workout the process for this:
 
- - Read this sample with Heaven determine what the sample does, and generate a title and description preferrably in JSON format.
+ - Read this sample with LLM determine what the sample does, and generate a title and description preferrably in JSON format.
  - The author can be inferred from the GitHub handle
  - Convert the title into a folder friendly format
  - Infer the types of tabs needed from the scripts cmdlets
@@ -14,3 +14,9 @@ So let's workout the process for this:
  - Move the original script to the assets folder for original reference
  - Make a reference from the sample into the sample tracker
  - Allow the user to optionally review the sample before going live, auto accept after 7 days
+
+ For development using the sample: https://pnp.github.io/script-samples/spo-modern-page-url-report/README.html
+
+ Example Output
+
+ **Description Result in JSON:**\n```json\n{\n  \"Title\": \"Title of the Script\",\n  \"Purpose\": \"Purpose of the Script\",\n    \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPListItem\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}\n```
