@@ -57,9 +57,9 @@ begin {
     
     # ------------------------------------------------------------------------------
 
-    $modelsystemPrompt = "You are a helpful analyser of PowerShell scripts that will be used to produce title and description of what the script intended function. Intended to give readers of the PowerShell script, a friendly message to describe what the script is about. The PowerShell scripts can be based on the Microsoft services such as Microsoft 365, SharePoint, Azure, Power Platform, Teams, Security and Compliance. The response should include a Title, Description, Assumptions, and Dependencies result in JSON format. Here is an example: {  ""Title"": ""Title of the Script"", ""Purpose"": ""Purpose of the Script"",    ""Dependencies"": [""Connect-PnPOnline"", ""Get-PnPListItem""],  ""Assumptions"": [{ ""SourceSitePartURLRequired"": true,      ""TenantFilterOptional"": false    }  ]}"
+    $modelsystemPrompt = "You are a helpful analyser of PowerShell scripts that will be used to produce title and description of what the script intended function. Intended to give readers of the PowerShell script, a friendly message to describe what the script is about. The PowerShell scripts can be based on the Microsoft services such as Microsoft 365, SharePoint, Azure, Power Platform, Teams, Security and Compliance. The reponses should be in English and in JSON Format using this example: {  ""Title"": ""Title of the Script"", ""Purpose"": ""Purpose of the Script"",    ""Dependencies"": [""Connect-PnPOnline"", ""Get-PnPListItem""],  ""Assumptions"": [{ ""SourceSitePartURLRequired"": true,      ""TenantFilterOptional"": false    }  ]}.   If you don't know the answer, just say that you don't know, don't try to make up an answer"
 
-    $promptTemplate = "Produce a short descriptive paragraph around 75 words long, what the script is, anticipate its purpose. Here is the PowerShell script: {0}"
+    $promptTemplate = "Please produce a short descriptive paragraph around 75 words long, what the PowerShell script is, anticipate its purpose. The response should include a Title, Description, Assumptions, and Dependencies.  \n Here is the PowerShell script to use for the descripion: "
 
     $localModels = "phi3.5:3.8b-mini-instruct-q4_0" #, "codellama","mistral-nemo" #,"phi3.5","llama3.2:1b"
 }
@@ -84,15 +84,16 @@ process {
             system = $SystemPrompt
             stream = $false
             options = @{
-                temperature = 0.25
-                top_p = 0.1
+                temperature = 0.1
                 max_tokens = 4096
+                num_ctx = 4096
+                format = "json"
             }
         }
         $json = $body | ConvertTo-Json
         $response = Invoke-RestMethod -Uri $OllamaLocalAPI -Method Post -Body $json -ContentType "application/json"
                         
-        return $response.response
+        return $response
     }
 
     Write-Host "Processing $Script" -ForegroundColor Cyan
@@ -107,9 +108,9 @@ process {
     $scriptToProcess = Get-Content $Script -Raw
 
     # Use the Model to get a richer description
-    $prompt = $promptTemplate -f $scriptToProcess
+    $prompt = $promptTemplate + $scriptToProcess
 
-    #Write-Host " - Prompt: $prompt" -ForegroundColor Blue
+    Write-Host " - Prompt: $prompt" -ForegroundColor Blue
 
     $localModelResults = @()
 
@@ -122,16 +123,28 @@ process {
         Write-Host "   Note: this can take a while to process..." -ForegroundColor Yellow
         
         $executionTime = Measure-Command {
-            $ModelDescription = Get-SampleDescription -Prompt $prompt -SystemPrompt $modelsystemPrompt -Model $localModel
+            $modelResponse = Get-SampleDescription -Prompt $prompt -SystemPrompt $modelsystemPrompt -Model $localModel
+            $ModelDescription = $modelResponse.response
         }
         Write-Host "$localModel Model Result Description: $ModelDescription" -ForegroundColor Cyan
         Write-Host "Execution time for $localModel - $($executionTime.TotalSeconds) seconds" -ForegroundColor Magenta
 
+        try{
+            $modelResultObject = $ModelDescription | ConvertFrom-Json -Depth 10
+        }
+        catch {
+            Write-Host " - Error converting JSON" -ForegroundColor Red
+        }
+
+        # Remove context property from the model response
+        $modelResponse.PSObject.Properties.Remove("context")        
+
         $localModelResults += [PSCustomObject]@{
             Model = $localModel
             ModelResultDescription = $ModelDescription
-            ModelResultObject = $ModelDescription | ConvertFrom-Json -Depth 10
+            ModelResultObject = $modelResultObject
             ExecutionTimeInSeconds = $executionTime.TotalSeconds
+            ModelResponse = $modelResponse
         }
     }
 
@@ -143,7 +156,9 @@ process {
     }
 
     # Output the results to a JSON file
-    $analysisResults | ConvertTo-Json -Depth 10 | Out-File "$outputLocation\LocalModelResults.json"
+    # File name suffix is the input script name but with all special characters removed
+    $outputFile = "LocalModelResults$(($Script -replace '[^a-zA-Z0-9]', '-'))"
+    $analysisResults | ConvertTo-Json -Depth 10 | Out-File "$outputLocation\$outputFile.json"
 
 }
 end{
