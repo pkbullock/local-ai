@@ -55,6 +55,7 @@ begin {
 "@
 
     Write-Host " Welcome to PnP Script Samples, this script will generate a new script sample from a PowerShell script" -ForegroundColor Green
+    Write-Host " ----------------------------------------------------------------------------------------------------- \n" -ForegroundColor Green
     
     # ------------------------------------------------------------------------------
 
