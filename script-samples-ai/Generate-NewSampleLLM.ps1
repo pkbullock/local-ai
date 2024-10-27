@@ -2,7 +2,7 @@
 ----------------------------------------------------------------------------
 
 Created:      Paul Bullock
-Date:         XX/XX/2024
+Date:         27/10/2024
 Disclaimer:   
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -126,7 +126,7 @@ process {
     # Replace the lorem ipsum text in the Readme.md file with the purpose of the script
     # Order is important as the short lorem ipsum text is a subset of the long lorem ipsum text
     $removeLongLoremIpsum = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.Aenean nec lorem. In porttitor. Donec laoreet nonummy augue."
-    $readmeFile = $readmeFile -notmatch $removeLongLoremIpsum
+    $readmeFile = $readmeFile -replace $removeLongLoremIpsum, $localModelResults.LocalModelResults.ModelResultObject.LongDescription
     
     $shortLoremIpsum = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna."
     $readmeFile = $readmeFile -replace $shortLoremIpsum, $localModelResults.LocalModelResults.ModelResultObject.Purpose
