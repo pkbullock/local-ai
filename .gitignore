@@ -177,3 +177,9 @@ $RECYCLE.BIN/
 # End of .gitignore
 polyglots/js-ai-inference-sdk/github-models.creds.json
 polyglots/python/output_image_notebook.png
+
+# Ignore all samples
+script-samples-ai/scripts/*
+
+# Do not ignore _template-sample
+!script-samples-ai/scripts/_template-script-submission
