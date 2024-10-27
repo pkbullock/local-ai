@@ -183,6 +183,7 @@ process {
         Prompt            = $prompt
         SystemPrompt      = $modelsystemPrompt
         LocalModelResults = $localModelResults
+        Processed = $false
     }
 
     # Output the results to a JSON file
