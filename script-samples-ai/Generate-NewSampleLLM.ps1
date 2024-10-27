@@ -58,6 +58,12 @@ process {
     # Checks and validation
     # ------------------------------------------------------------------------------
 
+    #Script file validation
+    if (-not (Test-Path -Path $Script)) {
+        Write-Host "The script file $Script does not exist" -ForegroundColor Red
+        return
+    }
+
     # Checks if the script already has a localModelResults.json file
     $processedLLMLocation = "$(Get-Location)\outputs"
     $outputFile = "localModelResults$(($Script -replace '[^a-zA-Z0-9]', '-'))"
