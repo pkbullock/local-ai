@@ -20,3 +20,10 @@ So let's workout the process for this:
  Example Output
 
  **Description Result in JSON:**\n```json\n{\n  \"Title\": \"Title of the Script\",\n  \"Purpose\": \"Purpose of the Script\",\n    \"Dependencies\": [\"Connect-PnPOnline\", \"Get-PnPListItem\"],\n  \"Assumptions\": [\n    {\n      \"SourceSitePartURLRequired\": true,\n      \"TenantFilterOptional\": false\n    }\n  ]\n}\n```
+
+
+ ## Sample Generation
+
+- New-Sample.ps1 comes from the script samples repo and should not be changed.
+- scripts/_template-script-submission is the same framework template
+- Process-SampleLLM.ps1 - script to analyse the raw PowerShell script
