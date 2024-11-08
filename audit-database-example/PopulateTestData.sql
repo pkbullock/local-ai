@@ -1,0 +1,22 @@
+INSERT INTO AuditHistory (EntityID, EntityType, ActionType, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate, FolderLocationID, ContainerLocationID, Remarks)
+VALUES 
+    (1, 'Folder', 'CREATE', 'user1', DEFAULT, NULL, NULL, 101, NULL, 'Initial folder creation'),
+    (2, 'Folder', 'CREATE', 'user2', DEFAULT, NULL, NULL, 102, NULL, 'New folder added'),
+    (1, 'Folder', 'UPDATE', 'user3', DEFAULT, 'user3', GETDATE(), 101, NULL, 'Updated folder details'),
+    (3, 'Container', 'CREATE', 'user4', DEFAULT, NULL, NULL, NULL, 201, 'Initial container setup'),
+    (3, 'Container', 'UPDATE', 'user5', DEFAULT, 'user5', GETDATE(), NULL, 201, 'Container settings updated'),
+    (4, 'Folder', 'CREATE', 'user1', DEFAULT, NULL, NULL, 103, NULL, 'Created for project X'),
+    (5, 'Container', 'CREATE', 'user2', DEFAULT, NULL, NULL, NULL, 202, 'Container for project Y'),
+    (2, 'Folder', 'UPDATE', 'user6', DEFAULT, 'user6', GETDATE(), 102, NULL, 'Folder permissions changed'),
+    (6, 'Folder', 'CREATE', 'user7', DEFAULT, NULL, NULL, 104, NULL, 'Archived folder'),
+    (5, 'Container', 'UPDATE', 'user8', DEFAULT, 'user8', GETDATE(), NULL, 202, 'Updated container resources'),
+    (101, 'File', 'CREATE', 'user9', DEFAULT, NULL, NULL, 101, NULL, 'Uploaded document.docx'),
+    (102, 'File', 'CREATE', 'user10', DEFAULT, NULL, NULL, 102, NULL, 'Uploaded image.png'),
+    (103, 'File', 'CREATE', 'user11', DEFAULT, NULL, NULL, 103, NULL, 'Spreadsheet.xlsx created'),
+    (104, 'File', 'CREATE', 'user9', DEFAULT, NULL, NULL, 101, NULL, 'Initial upload of video.mp4'),
+    (105, 'File', 'CREATE', 'user12', DEFAULT, NULL, NULL, 104, NULL, 'Presentation.pptx uploaded'),
+    (103, 'File', 'UPDATE', 'user13', DEFAULT, 'user13', GETDATE(), 103, NULL, 'Spreadsheet.xlsx updated'),
+    (106, 'File', 'CREATE', 'user14', DEFAULT, NULL, NULL, 105, NULL, 'Design.psd uploaded'),
+    (107, 'File', 'CREATE', 'user9', DEFAULT, NULL, NULL, NULL, 201, 'Manual.pdf uploaded into container'),
+    (108, 'File', 'UPDATE', 'user15', DEFAULT, 'user15', GETDATE(), 102, NULL, 'Updated image2.png metadata'),
+    (102, 'File', 'DELETE', 'user16', DEFAULT, NULL, GETDATE(), 102, NULL, 'Removed temporary image.png');
