@@ -63,7 +63,7 @@ begin {
 
     $promptTemplate = "Please produce a short descriptive paragraph around 150 words long, what the PowerShell script is, anticipate its purpose. The response should include a Title, Description, Assumptions, and Dependencies.  \n Here is the PowerShell script to use for the descripion: "
 
-    $localModels = "phi3.5:3.8b-mini-instruct-q4_0" #, "codellama","mistral-nemo" #,"phi3.5","llama3.2:1b"
+    $localModels = "phi4:14b-q4_K_M" #"phi4" #"phi4-mini" #"phi3.5:3.8b-mini-instruct-q4_0" , "codellama","mistral-nemo" #,"phi3.5","llama3.2:1b"
 }
 process {
 
@@ -162,7 +162,10 @@ process {
         Write-Host "Execution time for $localModel - $($executionTime.TotalSeconds) seconds" -ForegroundColor Magenta
 
         try {
-            $modelResultObject = $ModelDescription | ConvertFrom-Json -Depth 10
+            Write-Host "Just the JSON:" -ForegroundColor Green
+            $ModelDescription
+
+            $modelResultObject = $ModelDescription.replace('```json','').replace('```','') | ConvertFrom-Json -Depth 10
         }
         catch {
             Write-Host " - Error converting JSON" -ForegroundColor Red
