@@ -1,0 +1,1 @@
+This has moved to PnP Script Samples AI repo: https://github.com/pkbullock/pnp-script-samples-ai
